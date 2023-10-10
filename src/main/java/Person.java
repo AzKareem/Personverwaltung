@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Person {
 
@@ -7,7 +9,7 @@ public class Person {
     int householdId;
     String name;
     String lastName;
-    String birthday;
+    Date birthday;
 
     Address address_id;
     Gender gender;
@@ -18,7 +20,7 @@ public class Person {
         Female
     }
 
-    public Person(int householdId, String name, String lastName, String birthday, Address address_id, Gender gender) {
+    public Person(int householdId, String name, String lastName, Date birthday, Address address_id, Gender gender) {
         this.householdId = householdId;
         this.name = name;
         this.lastName = lastName;
@@ -28,7 +30,7 @@ public class Person {
         this.pets = new ArrayList<>();
     }
 
-    public Person(int householdId, String name, String lastName, Gender gender, String birthday) {
+    public Person(int householdId, String name, String lastName, Gender gender, Date birthday) {
         this.householdId = householdId;
         this.name = name;
         this.lastName = lastName;
@@ -50,7 +52,7 @@ public class Person {
 
     public void addPet(Pet pet) {
         pets.add(pet);
-        pet.setPersonId(this.getPersonId());
+
     }
     public int getPersonId() {
         return personId;
@@ -68,7 +70,7 @@ public class Person {
         return lastName;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
@@ -96,7 +98,7 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -107,4 +109,13 @@ public class Person {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return personId == person.personId && householdId == person.householdId && name.equals(person.name) && lastName.equals(person.lastName) && birthday.equals(person.birthday) && address_id.equals(person.address_id) && gender == person.gender && pets.equals(person.pets);
+    }
+
 }

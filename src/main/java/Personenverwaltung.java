@@ -1,5 +1,6 @@
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -30,7 +31,7 @@ public class Personenverwaltung {
     }
 
 
-    public void createPerson(int householdId, String name, String lastName, String birthday, Address address_id, Person.Gender gender) {
+    public void createPerson(int householdId, String name, String lastName, Date birthday, Address address_id, Person.Gender gender) {
         if (Util.containsNumber(name) || Util.containsNumber(lastName)) {
             throw new IllegalArgumentException("Name oder Nachname dürfen keine Zahlen enthalten.");
         }
@@ -40,7 +41,7 @@ public class Personenverwaltung {
     }
 
 
-    public void createPerson(int householdId, String name, String lastName, Person.Gender gender, String birthday) {
+    public void createPerson(int householdId, String name, String lastName, Person.Gender gender, Date birthday) {
         if (Util.containsNumber(name) || Util.containsNumber(lastName)) {
             throw new IllegalArgumentException("Name oder Nachname dürfen keine Zahlen enthalten.");
         }

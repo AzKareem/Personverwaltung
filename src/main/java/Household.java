@@ -1,30 +1,17 @@
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Household {
 
     private int householdId;
     private String householdName;
 
-    private HashMap<Integer, Person> persons;
+    List<Person> persons;
 
-
-    public Household() {
-        persons = new HashMap<>();
-
-    }
-
-    public Household(String householdName) {
-        this.householdName = householdName;
-        this.persons = new HashMap<>();
-    }
-
-
-    public void setHouseholdId(int householdId) {
+    public Household(int householdId, String householdName) {
         this.householdId = householdId;
-    }
-
-    public void setHouseholdName(String household_name) {
-        this.householdName = household_name;
+        this.householdName = householdName;
+        this.persons = new ArrayList<>();
     }
 
     public int getHouseholdId() {
@@ -33,14 +20,6 @@ public class Household {
 
     public String getHouseholdName() {
         return householdName;
-    }
-
-    public HashMap<Integer, Person> getPersons() {
-        return persons;
-    }
-
-    public void addPerson(Person person) {
-        persons.put(person.getPersonId(), person);
     }
 
     public String toString() {

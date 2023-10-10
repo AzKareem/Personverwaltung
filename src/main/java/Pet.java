@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Pet {
     private int petId;
     private int personId;
@@ -45,4 +47,13 @@ public class Pet {
     public void setSpecies(String species) {
         this.species = species;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return petId == pet.petId && personId == pet.personId && name.equals(pet.name) && species.equals(pet.species);
+    }
+
 }

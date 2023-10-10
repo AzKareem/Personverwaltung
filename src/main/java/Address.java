@@ -1,13 +1,25 @@
-
+import javax.xml.stream.Location;
+import java.util.Objects;
 
 public class Address {
     private int addressId;
     private int plz;
     private String location;
+
     private String streetName;
     private int houseNumber;
 
-    public Address(String location, String streetName, int houseNumber, int plz ) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return addressId == address.addressId && plz == address.plz && houseNumber == address.houseNumber && location.equals(address.location) && streetName.equals(address.streetName);
+    }
+
+
+    public Address(int addressId, String location, String streetName, int houseNumber, int plz ) {
+        this.addressId = addressId;
         this.streetName = streetName;
         this.houseNumber = houseNumber;
         this.plz = plz;
@@ -62,5 +74,25 @@ public class Address {
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
     }
+
+
+//    @Override
+//    public  boolean equals(Object o){
+//
+//        if (o == this) {
+//            return true;
+//        }
+//        if (!(o instanceof Address)) {
+//            return false;
+//        }
+//        Address c = (Address) o;
+//
+//        if (c.location == location && c.streetName == streetName && c.houseNumber == houseNumber && c.plz == plz){
+//            return true;
+//
+//        }else {
+//            return false;
+//        }
+//    }
 
 }
