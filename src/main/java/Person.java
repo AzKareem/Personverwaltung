@@ -21,6 +21,7 @@ public class Person {
     }
 
     public Person(int householdId, String name, String lastName, Date birthday, Address address_id, Gender gender) {
+
         this.householdId = householdId;
         this.name = name;
         this.lastName = lastName;
@@ -31,6 +32,7 @@ public class Person {
     }
 
     public Person(int householdId, String name, String lastName, Gender gender, Date birthday) {
+
         this.householdId = householdId;
         this.name = name;
         this.lastName = lastName;
@@ -40,6 +42,7 @@ public class Person {
     }
 
     public Person(int householdId, String name, String lastname) {
+
         this.householdId = householdId;
         this.name = name;
         this.lastName = lastname;
@@ -110,12 +113,6 @@ public class Person {
         this.gender = gender;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return personId == person.personId && householdId == person.householdId && name.equals(person.name) && lastName.equals(person.lastName) && birthday.equals(person.birthday) && address_id.equals(person.address_id) && gender == person.gender && pets.equals(person.pets);
-    }
+
 
 }

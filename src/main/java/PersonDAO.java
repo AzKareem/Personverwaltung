@@ -1,8 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PersonDAO {
 
@@ -102,7 +100,7 @@ public class PersonDAO {
                     if (resultSet.next()) {
 
 
-                        int personIdDb = resultSet.getInt("person_id");
+                        personId = resultSet.getInt("person_id");
                         String name = resultSet.getString("name");
                         String lastName = resultSet.getString("lastname");
                         Date birthday = resultSet.getDate("birthdate");
@@ -114,6 +112,7 @@ public class PersonDAO {
                         Address address =  AddressDAO.readAddress(addressId);
 
                         Person person = new Person(householdId, name, lastName, birthday, address, gender);
+                        person.setPersonId(personId);
 
 
                         return person;
@@ -124,28 +123,30 @@ public class PersonDAO {
         return null; // Return null if no person with the given ID is found
     }
 
-    public void updatePerson(int personId, String name, String lastName, Date birthday, Address address, Person.Gender gender, int householdId) throws SQLException {
+    public Person updatePerson(int personId, String name, String lastName, Date birthday, Address address, Person.Gender gender, int householdId) throws SQLException {
         try (Connection connection = Database.getConnection()) {
             String sql = "UPDATE person SET name = ?, lastname = ?, birthdate = ?, address_id = ?, gender = ?, household_id =? WHERE person_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, personId);
-                statement.setString(2, name);
-                statement.setString(3, lastName);
-                statement.setDate(4, birthday);
-                statement.setInt(5, address.getAddressId());
-                statement.setString(6, gender.toString());
-                statement.setInt(7, householdId);
+
+                statement.setString(1, name);
+                statement.setString(2, lastName);
+                statement.setDate(3, birthday);
+                statement.setInt(4, address.getAddressId());
+                statement.setString(5, gender.toString());
+                statement.setInt(6, householdId);
+                statement.setInt(7, personId);
 
 
                 int affectedRows = statement.executeUpdate();
                 if (affectedRows == 0) {
                     throw new SQLException("Updating person failed, no rows affected.");
                 }
+                return readPerson(personId);
             }
         }
     }
 
-    public void updatePerson(int personId, String name, String lastName, int householdId) throws SQLException {
+    public Person updatePerson(int personId, String name, String lastName, int householdId) throws SQLException {
         try (Connection connection = Database.getConnection()) {
             String sql = "UPDATE person SET name = ?, lastname = ? , household_id =? WHERE person_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -158,11 +159,12 @@ public class PersonDAO {
                 if (affectedRows == 0) {
                     throw new SQLException("Updating person failed, no rows affected.");
                 }
+                return readPerson(personId);
             }
         }
     }
 
-    public void updatePerson(int personId, int householdId, String name, String lastName, Person.Gender gender, Date birthday) throws SQLException {
+    public Person updatePerson(int personId, int householdId, String name, String lastName, Person.Gender gender, Date birthday) throws SQLException {
         try (Connection connection = Database.getConnection()) {
             String sql = "UPDATE person SET name = ?, lastname = ?, gender = ?, birthdate = ?, household_id =?  WHERE person_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -178,6 +180,7 @@ public class PersonDAO {
                 if (affectedRows == 0) {
                     throw new SQLException("Updating person failed, no rows affected.");
                 }
+                return readPerson(personId);
             }
         }
     }

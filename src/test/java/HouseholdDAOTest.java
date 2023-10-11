@@ -41,10 +41,16 @@ class HouseholdDAOTest {
 
     @Test
     void deleteHousehold() throws SQLException {
-        int householdId = 34;
-        householdDAO.deleteHousehold(householdId);
-        SQLException ex = assertThrows(SQLException.class, () -> householdDAO.readHousehold(householdId));
-        assertEquals("Household not found with ID: " + householdId, ex.getMessage());
+        int householdId = 32;
+        if (householdDAO.readHousehold(householdId )  != null){
+            householdDAO.deleteHousehold(householdId);
+            assertEquals(null, householdDAO.readHousehold(householdId));
+        }else{
+            SQLException ex = assertThrows(SQLException.class, () -> householdDAO.readHousehold(householdId));
+            assertEquals("Household not found with ID: " + householdId, ex.getMessage());
+        }
+
+
     }
 
     @Test

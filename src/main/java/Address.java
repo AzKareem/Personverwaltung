@@ -76,23 +76,6 @@ public class Address {
     }
 
 
-//    @Override
-//    public  boolean equals(Object o){
-//
-//        if (o == this) {
-//            return true;
-//        }
-//        if (!(o instanceof Address)) {
-//            return false;
-//        }
-//        Address c = (Address) o;
-//
-//        if (c.location == location && c.streetName == streetName && c.houseNumber == houseNumber && c.plz == plz){
-//            return true;
-//
-//        }else {
-//            return false;
-//        }
-//    }
+
 
 }

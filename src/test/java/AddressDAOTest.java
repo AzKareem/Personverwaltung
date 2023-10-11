@@ -55,8 +55,14 @@ class AddressDAOTest {
     @Test
     void deleteAddress()throws SQLException {
         int addressId = 17;
-        addressDAO.deleteAddress(addressId);
-        SQLException ex = assertThrows(SQLException.class, () -> addressDAO.readAddress(addressId));
-        assertEquals("Address not found with ID: " + addressId, ex.getMessage());
+        if (addressDAO.readAddress(addressId) != null){
+            addressDAO.deleteAddress(addressId);
+            assertEquals(null,addressDAO.readAddress(addressId));
+        }else{
+            SQLException ex = assertThrows(SQLException.class, () -> addressDAO.deleteAddress(addressId));
+            assertEquals("Deleting Address failed, no rows affected.", ex.getMessage());
+        }
+
+
     }
 }

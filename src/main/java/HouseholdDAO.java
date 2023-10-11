@@ -34,7 +34,6 @@ public class HouseholdDAO {
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, householdID);
 
-
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     Household household = new Household(resultSet.getInt("household_id"), resultSet.getString("household_name"));

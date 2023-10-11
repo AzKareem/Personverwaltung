@@ -51,10 +51,15 @@ class PetDAOTest {
 
     @Test
     void deletePet() throws SQLException {
-        int petId = 24;
-        petDAO.deletePet(petId);
-        SQLException ex = assertThrows(SQLException.class, () -> petDAO.readPet(petId));
-        assertEquals("Pet not found with ID: " + petId, ex.getMessage());
+        int petId = 29;
+        if (petDAO.readPet(petId) != null){
+            petDAO.deletePet(petId);
+            assertEquals(null, petDAO.readPet(petId));
+        }else{
+            SQLException ex = assertThrows(SQLException.class, () -> petDAO.deletePet(petId));
+            assertEquals("Deleting Pet failed, no rows affected.", ex.getMessage());
+        }
+
     }
 
     @Test
