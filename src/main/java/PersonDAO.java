@@ -35,7 +35,7 @@ public class PersonDAO {
         }
     }
 
-    public Person createPerson( int householdId, String name, String lastName, Person.Gender gender, Date birthday) throws SQLException {
+    public Person createPerson(int householdId, String name, String lastName, Person.Gender gender, Date birthday) throws SQLException {
         Connection connection = Database.getConnection();
         String sql = "INSERT INTO person ( name, lastname, gender, birthdate, household_id) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -63,7 +63,7 @@ public class PersonDAO {
     }
 
 
-    public Person createPerson( int householdId, String name, String lastName) throws SQLException {
+    public Person createPerson(int householdId, String name, String lastName) throws SQLException {
         try (Connection connection = Database.getConnection()) {
             String sql = "INSERT INTO person (name, lastname, household_id) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -109,7 +109,7 @@ public class PersonDAO {
                         int householdId = resultSet.getInt("household_id");
 
 
-                        Address address =  AddressDAO.readAddress(addressId);
+                        Address address = AddressDAO.readAddress(addressId);
 
                         Person person = new Person(householdId, name, lastName, birthday, address, gender);
                         person.setPersonId(personId);
@@ -216,7 +216,7 @@ public class PersonDAO {
                 int addressId = resultSet.getInt("address_id");
                 Person.Gender gender = Person.Gender.valueOf(resultSet.getString("gender"));
 
-                Address address =  AddressDAO.readAddress(addressId);
+                Address address = AddressDAO.readAddress(addressId);
                 Person person = new Person(personId, name, lastName, birthday, address, gender);
                 persons.add(person);
             }

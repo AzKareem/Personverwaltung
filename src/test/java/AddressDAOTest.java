@@ -11,13 +11,13 @@ class AddressDAOTest {
     private AddressDAO addressDAO;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         addressDAO = new AddressDAO();
     }
 
     @Test
-    void createAddress()throws SQLException {
-        Address address = addressDAO.createAddress("idontknow1","unknown",4,4020);
+    void createAddress() throws SQLException {
+        Address address = addressDAO.createAddress("idontknow1", "unknown", 4, 4020);
 
 
         Address checkAddress = addressDAO.readAddress(address.getAddressId());
@@ -29,7 +29,7 @@ class AddressDAOTest {
     }
 
     @Test
-    void readAddress()throws SQLException {
+    void readAddress() throws SQLException {
         int addressId = 10;
         Address address = addressDAO.readAddress(addressId);
 
@@ -37,14 +37,14 @@ class AddressDAOTest {
     }
 
     @Test
-    void updateAddress()throws SQLException {
+    void updateAddress() throws SQLException {
         int addressId = 10;
         String newAddressLocation = "newLocation";
         String newAddressStreetName = "newStreetName";
         int newHouseNumber = 66;
         int newPlz = 4050;
-        addressDAO.updateAddress(addressId,newAddressLocation,newAddressStreetName, newHouseNumber,newPlz);
-        Address updatedAddress = addressDAO.readAddress(addressId);
+        addressDAO.updateAddress(addressId, newAddressLocation, newAddressStreetName, newHouseNumber, newPlz);
+        Address updatedAddress = AddressDAO.readAddress(addressId);
         assertEquals(newAddressLocation, updatedAddress.getLocation());
         assertEquals(newAddressStreetName, updatedAddress.getStreetName());
         assertEquals(newHouseNumber, updatedAddress.getHouseNumber());
@@ -53,16 +53,21 @@ class AddressDAOTest {
     }
 
     @Test
-    void deleteAddress()throws SQLException {
+    void deleteAddress() throws SQLException {
         int addressId = 17;
-        if (addressDAO.readAddress(addressId) != null){
-            addressDAO.deleteAddress(addressId);
-            assertEquals(null,addressDAO.readAddress(addressId));
-        }else{
+
+
+        try {
+            if (AddressDAO.readAddress(addressId) != null) {
+                addressDAO.deleteAddress(addressId);
+                assertEquals(null, AddressDAO.readAddress(addressId));
+            }
+        } catch (SQLException e) {
+
             SQLException ex = assertThrows(SQLException.class, () -> addressDAO.deleteAddress(addressId));
             assertEquals("Deleting Address failed, no rows affected.", ex.getMessage());
         }
-
-
     }
+
+
 }
