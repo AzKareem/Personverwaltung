@@ -75,7 +75,7 @@ class PersonDAOTest {
 
     @Test
     void deletePerson() throws SQLException {
-        int personId = 20;
+        int personId = 12;
         if (personDAO.readPerson(personId) != null) {
             personDAO.deletePerson(personId);
             assertEquals(null , personDAO.readPerson(personId));

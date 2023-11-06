@@ -40,7 +40,7 @@ class HouseholdDAOTest {
     }
 
     @Test
-    void deleteHousehold() throws SQLException {
+    void deleteHousehold()  {
         int householdId = 32;
 
         try {
